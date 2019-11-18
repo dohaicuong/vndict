@@ -26,44 +26,13 @@ import CloseIcon from '@material-ui/icons/Close';
 
 import { LinkInterceptor } from "components/LinkInterceptor";
 import { useParams, useHistory } from "react-router";
-import { WordPopup } from "components/WordPopup/WordPopup";
 import { fetchWord } from "services/api";
 import { toProperCase } from "services/util";
 import constants from "../constants";
 import { Menu, MenuItem } from "@material-ui/core";
-import { WordSpeaker } from "common/WordSpeaker/WordSpeaker";
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    root: {
-      padding: "2px 4px",
-      display: "flex",
-      alignItems: "center",
-      width: "100%"
-    },
-    input: {
-      marginLeft: theme.spacing(1),
-      flex: 1
-    },
-    iconButton: {
-      padding: 10
-    },
-    divider: {
-      height: 1,
-      marginTop: theme.spacing(1)
-    },
-    container: {
-      margin: theme.spacing(1, 0),
-      paddingTop: theme.spacing(2)
-    },
-    speakButton: {
-      marginLeft: theme.spacing(3)
-    },
-    snackbar: {
-      backgroundColor: theme.palette.error.dark,
-    }
-  })
-);
+import WordPopup from "components/WordPopup";
+import WordSpeaker from "components/WordSpeaker";
 
 const Home: React.FC = () => {
   const source = localStorage.getItem("SOURCE_ID") || "html";
@@ -231,12 +200,49 @@ const Home: React.FC = () => {
       )}
 
       {message && (
-        <SnackbarContent className={classes.snackbar} message={message} action={<IconButton key="close" aria-label="close" color="inherit" onClick={() => setMessage(null)}>
-          <CloseIcon />
-        </IconButton>} />
+        <SnackbarContent
+          className={classes.snackbar}
+          message={message}
+          action={
+          <IconButton key="close" aria-label="close" color="inherit" onClick={() => setMessage(null)}>
+            <CloseIcon />
+          </IconButton>}
+        />
       )}
     </React.Fragment>
   );
 };
 
 export default Home;
+
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    root: {
+      padding: "2px 4px",
+      display: "flex",
+      alignItems: "center",
+      width: "100%"
+    },
+    input: {
+      marginLeft: theme.spacing(1),
+      flex: 1
+    },
+    iconButton: {
+      padding: 10
+    },
+    divider: {
+      height: 1,
+      marginTop: theme.spacing(1)
+    },
+    container: {
+      margin: theme.spacing(1, 0),
+      paddingTop: theme.spacing(2)
+    },
+    speakButton: {
+      marginLeft: theme.spacing(3)
+    },
+    snackbar: {
+      backgroundColor: theme.palette.error.dark,
+    }
+  })
+);

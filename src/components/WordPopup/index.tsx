@@ -1,22 +1,22 @@
+import React from "react";
+
 import {
   Dialog, AppBar, Toolbar, IconButton, Typography,
   makeStyles, Theme, createStyles, Slide, Box
-} from "@material-ui/core";
+} from "@material-ui/core"
 
-import React from "react";
-
-import CloseIcon from '@material-ui/icons/Close';
 import { TransitionProps } from '@material-ui/core/transitions';
-import { LinkInterceptor } from "components/LinkInterceptor";
+import CloseIcon from '@material-ui/icons/Close';
 import { toProperCase } from "services/util";
-import WordSpeaker from "common/WordSpeaker/WordSpeaker";
+import { LinkInterceptor } from "components/LinkInterceptor";
+import WordSpeaker from "components/WordSpeaker";
 
 interface WordPopupProps {
   word: any
   onClose: () => void
 }
 
-export const WordPopup: React.FC<WordPopupProps> = ({ word, onClose }) => {
+const WordPopup: React.FC<WordPopupProps> = ({ word, onClose }) => {
   const classes = useStyles({});
   const Transition = React.forwardRef<unknown, TransitionProps>((props, ref) => {
     return <Slide direction="up" ref={ref} {...props} />;
@@ -52,6 +52,8 @@ export const WordPopup: React.FC<WordPopupProps> = ({ word, onClose }) => {
     </Dialog>
   )
 }
+
+export default WordPopup
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
