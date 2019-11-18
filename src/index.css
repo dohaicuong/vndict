@@ -37,16 +37,6 @@ code {
   font-weight: 500 !important;
 }
 
-.container-wrapper {
-  padding-left: 0 !important;
-  padding-right: 0 !important;
-  background: #fff;
-  padding-bottom: 50px;
-  -webkit-box-shadow: 1px 2px 4px 0px rgba(51, 3, NaN, 1);
-  -moz-box-shadow: 1px 2px 4px 0px rgba(51, 3, NaN, 1);
-  box-shadow: 1px 2px 4px 0px rgba(51, 3, NaN, 1);
-}
-
 .dict--title {
   display: none;
 }

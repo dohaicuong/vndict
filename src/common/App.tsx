@@ -1,36 +1,34 @@
-import React from "react";
-import ThemeProvider from './ThemeProvider'
+import React from "react"
+
+import { makeStyles, Theme } from "@material-ui/core/styles"
+import Container from "@material-ui/core/Container"
+import Paper from "@material-ui/core/Paper"
 import AppBar from 'components/AppBar'
-import Home from "containers/Home"
-import Container from "@material-ui/core/Container";
 
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-} from "react-router-dom";
-
+import ThemeProvider from './ThemeProvider'
+import Routes from './Routes'
 
 const App: React.FC = () => {
+  const classes = useStyles({})
+
   return (
-    <Router basename={process.env.PUBLIC_URL}>
-      <ThemeProvider>
-        <Container fixed  className="container-wrapper">
+    <ThemeProvider>
+      <Container fixed>
+        <Paper className={classes.paper}>
           <AppBar />
           <Container>
-          <Switch>
-            <Route path="/:word">
-              <Home />
-            </Route>
-            <Route path="">
-              <Home />
-            </Route>
-            </Switch>
-            </Container>
-        </Container>
-      </ThemeProvider>
-    </Router>
+            <Routes />
+          </Container>
+        </Paper>
+      </Container>
+    </ThemeProvider>
   );
 };
 
 export default App;
+
+const useStyles = makeStyles((theme: Theme) => ({
+  paper: {
+    paddingBottom: theme.spacing(6)
+  }
+}))

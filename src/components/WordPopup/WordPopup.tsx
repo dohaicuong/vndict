@@ -11,6 +11,48 @@ import { LinkInterceptor } from "components/LinkInterceptor";
 import { toProperCase } from "services/util";
 import WordSpeaker from "common/WordSpeaker/WordSpeaker";
 
+interface WordPopupProps {
+  word: any
+  onClose: () => void
+}
+
+export const WordPopup: React.FC<WordPopupProps> = ({ word, onClose }) => {
+  const classes = useStyles({});
+  const Transition = React.forwardRef<unknown, TransitionProps>((props, ref) => {
+    return <Slide direction="up" ref={ref} {...props} />;
+  });
+  const handleClose = () => onClose();
+  if (!word) return null;
+
+  return (
+    <Dialog
+      fullScreen={window.innerWidth < 667}
+      open={word != null}
+      onClose={() => { }}
+      TransitionComponent={Transition}
+    >
+      <AppBar className={classes.appBar}>
+        <Toolbar>
+          <IconButton edge="start" color="inherit" onClick={handleClose} aria-label="close">
+            <CloseIcon />
+          </IconButton>
+          <Typography variant="h6" className={classes.title}>
+            {toProperCase(word.word)} {word.pronounce && <span> - {word.pronounce}</span>}
+          </Typography>
+          <WordSpeaker word={word.word} accents={["us", "uk"]} noStyle={true}></WordSpeaker>
+        </Toolbar>
+      </AppBar>
+      <Box className={classes.innerBox}>
+        <LinkInterceptor
+          html={word.content}
+          onLinkClick={(e: React.MouseEvent<HTMLAnchorElement>) => {
+            e.preventDefault();
+          }}></LinkInterceptor>
+      </Box>
+    </Dialog>
+  )
+}
+
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     appBar: {
@@ -25,35 +67,3 @@ const useStyles = makeStyles((theme: Theme) =>
     }
   }),
 );
-
-export const WordPopup: React.FC<{ word: any, onClose: () => void }> = ({ word, onClose }) => {
-  const classes = useStyles({});
-  const Transition = React.forwardRef<unknown, TransitionProps>(function Transition(props, ref) {
-    return <Slide direction="up" ref={ref} {...props} />;
-  });
-  const handleClose = () => onClose();
-  if (!word) return null;
-
-  return (
-    <Dialog fullScreen={window.innerWidth < 667} open={word != null} onClose={() => { }} TransitionComponent={Transition}>
-      <AppBar className={classes.appBar}>
-        <Toolbar>
-          <IconButton edge="start" color="inherit" onClick={handleClose} aria-label="close">
-            <CloseIcon />
-          </IconButton>
-          <Typography variant="h6" className={classes.title}>
-            {toProperCase(word.word)} {word.pronounce && <span> - {word.pronounce}</span>}
-          </Typography>
-          <WordSpeaker word={word.word} accents={["us", "uk"]} noStyle={true}></WordSpeaker>
-        </Toolbar>
-      </AppBar>
-        <Box className={classes.innerBox}>
-          <LinkInterceptor
-            html={word.content}
-            onLinkClick={(e: React.MouseEvent<HTMLAnchorElement>) => {
-              e.preventDefault();
-            }}></LinkInterceptor>
-        </Box>
-    </Dialog>
-      )
-}

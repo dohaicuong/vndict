@@ -17,18 +17,15 @@ interface SuggestionListProps {
 }
 
 const SuggestionList: React.FC<SuggestionListProps> = ({ suggests, setKeyword, search }) => {
-  const classes = useStyles({ successtionBox: {paddingTop: "25px"}})
- 
-  return suggests && suggests.length >0 && (
-    <Box className= {classes.suggestList}>
-      <Divider/>
-      <Typography variant="h3" component="h5" style={{marginTop:"25px"}}>
+  const classes = useStyles({}) /* successtionBox: {paddingTop: "25px"} */
+
+  return suggests && suggests.length > 0 && (
+    <Box className={classes.suggestList}>
+      <Divider />
+      <Typography variant="h3" component="h5" className={classes.groupHeader}>
         Từ liên quan:
       </Typography>
-      <List
-        component="nav"
-        aria-label="contacts"
-      >
+      <List component="nav" aria-label="Từ liên quan" >
         {suggests.map((item: any) => (
           <ListItem
             key={item.word}
@@ -55,5 +52,8 @@ const useStyles = makeStyles((theme: Theme) => ({
   suggestList: {
     backgroundColor: theme.palette.background.paper,
     marginTop: theme.spacing(5)
+  },
+  groupHeader: {
+    marginTop: 25
   }
 }))
